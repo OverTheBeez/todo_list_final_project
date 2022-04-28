@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'navigation.dart';
 
 // Sample code from https://github.com/pythonhubpy/YouTube/blob/Firebae-CRUD-Part-1/lib/main.dart#L19
 // video https://www.youtube.com/watch?v=SmmCMDSj8ZU&list=PLtr8DfMFkiJu0lr1OKTDaoj44g-GGnFsn&index=10&t=291s
@@ -27,13 +28,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FireStore Demo List',
+      title: 'To-Do List Final Project',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: FirebaseDemo(),
     );
   }
+
 }
 
 class FirebaseDemo extends StatefulWidget {
@@ -45,6 +47,7 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
   final TextEditingController _newItemTextField = TextEditingController();
   final CollectionReference itemCollectionDB = FirebaseFirestore.instance.collection('ITEMS');
   List<String> itemList = [];
+  final int _selectedIndex = 0;
 
   Widget nameTextFieldWidget() {
     return SizedBox(
@@ -53,7 +56,7 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
         controller: _newItemTextField,
         style: TextStyle(fontSize: 22, color: Colors.black),
         decoration: InputDecoration(
-          hintText: "Item Name",
+          hintText: "Task:",
           hintStyle: TextStyle(fontSize: 22, color: Colors.black),
         ),
       ),
@@ -71,7 +74,7 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
             //});
           },
           child: Text(
-            'Add Data',
+            'Add Task',
             style: TextStyle(fontSize: 20),
           )),
     );
@@ -120,9 +123,39 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
     );
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      var _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Mobile Device Programming Final Project"),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+
+
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
         height: MediaQuery.of(context).size.height,
@@ -137,4 +170,5 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
       ),
     );
   }
+
 }
