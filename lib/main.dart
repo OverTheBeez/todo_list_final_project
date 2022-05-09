@@ -135,6 +135,43 @@ class _FirebaseDemoState extends State<FirebaseDemo> {
       appBar: AppBar(
         title: Text("Mobile Device Programming Final Project"),
       ),
+
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'To Do List Settings',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.accessibility_new_rounded),
+              title: Text('Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Account'),
+            ),
+            ListTile(
+              leading: Icon(Icons.add_to_drive),
+              title: Text('Sync'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
 
         items: const <BottomNavigationBarItem>[
